@@ -1,0 +1,10 @@
+<template>
+  <div>blogMain</div>
+</template>
+<script>
+export default {
+    name:"blogMain"
+};
+</script>
+<style scoped>
+</style>
