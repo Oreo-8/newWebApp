@@ -6,3 +6,10 @@ export function getTag() {
         method: 'get',
     })
 }
+
+export function getPopularBlog() {
+    return request({
+        url: '/blog/getPopularBlog',
+        method: 'get',
+    })
+}

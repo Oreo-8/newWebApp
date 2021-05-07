@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-row :gutter="20">
-      
       <el-col :span="19">
         <el-card class="box-card">
           <div>
@@ -29,9 +28,24 @@
 
           <el-tabs type="card" v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="所有专题" name="all">
+              <el-divider content-position="left">热门文章</el-divider>
               <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                  <!-- <h3 class="medium">{{ item }}</h3> -->
+                <el-carousel-item
+                  v-for="(item, index) in popularList"
+                  :key="index"
+                >
+                  <div :style="getStyle(item.body)">
+                    <h3
+                      style="
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                        color: #000000;
+                      "
+                    >
+                      {{ item.title }}
+                    </h3>
+                  </div>
                 </el-carousel-item>
               </el-carousel>
             </el-tab-pane>
@@ -42,26 +56,67 @@
               :name="item.id + ''"
             />
           </el-tabs>
-          <div>列表</div>
+          <div>
+            <iframe
+              v-if="isCM"
+              frameborder="no"
+              border="0"
+              marginwidth="0"
+              marginheight="0"
+              width="330"
+              height="86"
+              src="https://music.163.com/outchain/player?type=2&id=30431421&auto=1&height=66"
+            ></iframe>
+            <el-divider content-position="left">{{ activeTitle }}</el-divider>
+            <page-item />
+          </div>
         </el-card>
       </el-col>
-
       <el-col :span="5"><el-card class="box-card"></el-card></el-col>
     </el-row>
   </div>
 </template>
 <script>
-import { getTag } from "@/api/blog";
+import { getTag, getPopularBlog } from "@/api/blog";
+import { imgFirst } from "@/utils/index";
+import backImg from "@/assets/image4.jpg";
+import pageItem from "@/components/pageItem";
 export default {
   name: "blogMain",
+  components: {
+    pageItem,
+  },
   data() {
     return {
       activeName: "all",
+      activeTitle: "热门文章-->专区",
       tagList: [],
+      popularList: [],
+      isCM: false,
     };
   },
+  computed: {},
   methods: {
+    imageFilter(str) {
+      let img = imgFirst(str);
+      if (!img) {
+        return backImg;
+      }
+      return img;
+    },
+    getStyle(str) {
+      return {
+        textAlign: "center",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundImage: "url(" + this.imageFilter(str) + ")",
+        backgroundPosition: "center",
+      };
+    },
     handleClick(tab, event) {
+      this.activeTitle = tab.label + "-->专区";
+      this.isCM = tab.label == "红色专区";
       console.log(tab, event);
     },
   },
@@ -69,26 +124,13 @@ export default {
     getTag().then((r) => {
       this.tagList = r.data;
     });
+    getPopularBlog().then((r) => {
+      this.popularList = r.data;
+    });
   },
 };
 </script>
 <style scoped>
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
 .div-row {
   display: flex;
   flex-direction: row;

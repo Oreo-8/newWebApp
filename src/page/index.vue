@@ -13,6 +13,7 @@
       <!-- <p class="typing" v-show="true">BlueBerryPie</p> -->
       <div class="arrow">
         <el-button
+          style="background-color: unset"
           icon="el-icon-arrow-down"
           plain
           circle
@@ -28,7 +29,7 @@
   </div>
 </template>
 <script>
-import backImg from "../assets/image4.png";
+import backImg from "../assets/image4.jpg";
 export default {
   name: "mainIndex",
   data() {
@@ -132,13 +133,13 @@ export default {
 }
 
 #pronbit {
-  background-color: #231f20;
+  background-color: #2b2b2b;
   padding-top: 70px;
   padding-right: 10px;
   padding-left: 10px;
   padding-bottom: 10px;
 }
 #mainIndex {
-  background-color: #231f20;
+  background-color: #2b2b2b;
 }
 </style>
