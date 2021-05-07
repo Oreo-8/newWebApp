@@ -10,7 +10,7 @@
         backgroundPosition: 'center center',
       }"
     >
-      <p class="typing" v-show="true">BlueBerryPie</p>
+      <!-- <p class="typing" v-show="true">BlueBerryPie</p> -->
       <div class="arrow">
         <el-button
           icon="el-icon-arrow-down"
