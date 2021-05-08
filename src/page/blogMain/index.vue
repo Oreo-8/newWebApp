@@ -57,16 +57,7 @@
             />
           </el-tabs>
           <div>
-            <iframe
-              v-if="isCM"
-              frameborder="no"
-              border="0"
-              marginwidth="0"
-              marginheight="0"
-              width="330"
-              height="86"
-              src="https://music.163.com/outchain/player?type=2&id=30431421&auto=1&height=66"
-            ></iframe>
+            <div v-html="htmlData"></div>
             <el-divider content-position="left">{{ activeTitle }}</el-divider>
             <page-item />
           </div>
@@ -92,7 +83,7 @@ export default {
       activeTitle: "热门文章-->专区",
       tagList: [],
       popularList: [],
-      isCM: false,
+      htmlData: "",
     };
   },
   computed: {},
@@ -116,8 +107,12 @@ export default {
     },
     handleClick(tab, event) {
       this.activeTitle = tab.label + "-->专区";
-      this.isCM = tab.label == "红色专区";
-      console.log(tab, event);
+      this.htmlData = "";
+      let index = this.tagList.findIndex((item) => item.id == tab.name);
+
+      if (index != -1) {
+        this.htmlData = this.tagList[index].tagDtl;
+      }
     },
   },
   created() {
