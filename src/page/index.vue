@@ -25,12 +25,17 @@
       <!-- 内容 -->
       <router-view></router-view>
     </div>
+    <bottom-info />
     <el-backtop></el-backtop>
   </div>
 </template>
 <script>
 import backImg from "../assets/image4.jpg";
+import bottomInfo from "../components/bottomInfo";
 export default {
+  components: {
+    bottomInfo,
+  },
   name: "mainIndex",
   data() {
     return {
@@ -139,6 +144,7 @@ export default {
   padding-left: 10px;
   padding-bottom: 10px;
 }
+
 #mainIndex {
   background-color: #2b2b2b;
 }

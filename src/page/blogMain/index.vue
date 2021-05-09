@@ -60,10 +60,31 @@
             <div v-html="htmlData"></div>
             <el-divider content-position="left">{{ activeTitle }}</el-divider>
             <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <page-item />
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :total="1000"
+              :hide-on-single-page="true"
+            >
+            </el-pagination>
           </div>
         </el-card>
       </el-col>
-      <el-col :span="5"><el-card class="box-card"></el-card></el-col>
+      <el-col :span="5">
+        <el-card class="box-card"><my-user-menu /> </el-card
+      ></el-col>
     </el-row>
   </div>
 </template>
@@ -72,15 +93,18 @@ import { getTag, getPopularBlog } from "@/api/blog";
 import { imgFirst } from "@/utils/index";
 import backImg from "@/assets/image4.jpg";
 import pageItem from "@/components/pageItem";
+import myUserMenu from "@/components/myUserMenu";
+
 export default {
   name: "blogMain",
   components: {
     pageItem,
+    myUserMenu,
   },
   data() {
     return {
       activeName: "all",
-      activeTitle: "热门文章-->专区",
+      activeTitle: "热门文章",
       tagList: [],
       popularList: [],
       htmlData: "",
